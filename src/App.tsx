@@ -4,7 +4,7 @@ import "./App.css";
 function App() {
     return (
         <main>
-            <RecursiveComponent colorIndex={0}></RecursiveComponent>
+            <RecursiveComponent colorIndex={0} depth={1}></RecursiveComponent>
         </main>
     );
 }

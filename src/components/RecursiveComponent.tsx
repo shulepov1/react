@@ -46,7 +46,7 @@ export default function RecursiveComponent({
             <div className="children">
                 {Array(childrenCount)
                     .fill(null)
-                    .map((child) => {
+                    .map(() => {
                         return (
                             <RecursiveComponent
                                 colorIndex={nextColorIndex}
