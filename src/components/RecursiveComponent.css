@@ -1,0 +1,22 @@
+.component {
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 1rem;
+    border-radius: 1rem;
+    align-self: start;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    width: fit-content;
+}
+button.addChildButton {
+    color: green;
+    width: fit-content;
+    padding-inline: 2px;
+}
+.children {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
