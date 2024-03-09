@@ -1,11 +1,17 @@
-import RecursiveComponent from "./components/RecursiveComponent";
 import "./App.css";
+import Navbar from "./components/navbar/Navbar";
+import { Outlet } from "react-router-dom";
 
 function App() {
     return (
-        <main>
-            <RecursiveComponent colorIndex={0} depth={1}></RecursiveComponent>
-        </main>
+        <>
+            <header>
+                <Navbar></Navbar>
+            </header>
+            <main>
+                <Outlet></Outlet>
+            </main>
+        </>
     );
 }
 
