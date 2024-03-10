@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./RecursiveComponent.css";
+import styles from "./RecursiveComponent.module.css";
 
 type Props = {
     colorIndex: number;
@@ -36,19 +36,20 @@ export default function RecursiveComponent({
 
     return (
         <div
-            className="component"
+            className={styles.component}
             style={{ backgroundColor, border: `3px solid ${borderColor}` }}
         >
-            <p className="name">[children: {childrenCount}]</p>
-            <button className="addChildButton" onClick={handleClick}>
+            <p>[children: {childrenCount}]</p>
+            <button className={styles.addChildButton} onClick={handleClick}>
                 Add Child
             </button>
-            <div className="children">
+            <div className={styles.children}>
                 {Array(childrenCount)
                     .fill(null)
-                    .map(() => {
+                    .map((item, index) => {
                         return (
                             <RecursiveComponent
+                                key={index}
                                 colorIndex={nextColorIndex}
                                 depth={depth + 1}
                             ></RecursiveComponent>

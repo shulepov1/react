@@ -3,6 +3,16 @@
     padding: 0;
 }
 
+html,
+body {
+    min-height: 100%;
+}
+
+body {
+    background-color: #1c1c1c;
+    color: #f3f4f6;
+}
+
 main {
     padding: 1rem;
 }

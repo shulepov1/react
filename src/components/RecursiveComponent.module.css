@@ -10,7 +10,7 @@
 
     width: fit-content;
 }
-button.addChildButton {
+.addChildButton {
     color: green;
     width: fit-content;
     padding-inline: 2px;
