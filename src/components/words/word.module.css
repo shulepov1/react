@@ -1,0 +1,12 @@
+.wordCurrent {
+    color: yellow;
+}
+.wordWrong {
+    background-color: red;
+}
+.wordWrongSkipped {
+    color: red;
+}
+.wordOk {
+    color: green;
+}
