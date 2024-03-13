@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./navbar.module.css";
+import { AppContext } from "../../App";
 
 export default function Navbar() {
-    const [activeIndex, setActiveIndex] = useState(0);
-
+    const { activeIndex, setActiveIndex } = useContext(AppContext);
     return (
         <nav className={styles.nav}>
             <ul className={styles.ul}>
