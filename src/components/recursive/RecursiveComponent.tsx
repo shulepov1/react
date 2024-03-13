@@ -47,13 +47,14 @@ export default function RecursiveComponent({
                 {Array(childrenCount)
                     .fill(null)
                     .map((item, index) => {
-                        return (
-                            <RecursiveComponent
-                                key={index}
-                                colorIndex={nextColorIndex}
-                                depth={depth + 1}
-                            ></RecursiveComponent>
-                        );
+                        if (item)
+                            return (
+                                <RecursiveComponent
+                                    key={index}
+                                    colorIndex={nextColorIndex}
+                                    depth={depth + 1}
+                                ></RecursiveComponent>
+                            );
                     })}
             </div>
         </div>

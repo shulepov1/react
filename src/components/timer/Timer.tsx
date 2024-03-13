@@ -1,7 +1,12 @@
 import styles from "./timer.module.css";
 import Reset from "../svg/Reset";
 
-export default function Timer({ timer, handleClick }) {
+type TimerProps = {
+    timer: number;
+    handleClick: () => void;
+};
+
+export default function Timer({ timer, handleClick }: TimerProps) {
     return (
         <div className={styles.timer}>
             <div>
