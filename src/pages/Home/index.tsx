@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import RecursiveComponent from "../../components/RecursiveComponent";
+import RecursiveComponent from "../../components/recursive/RecursiveComponent";
 import { AppContext } from "../../App";
 
 export default function Home() {
