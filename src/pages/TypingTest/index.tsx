@@ -155,7 +155,7 @@ export default function TypingTestPage() {
                 setIsCurrentWordWrong(false);
             }
         }
-    }, [inputValue, currentWordIndex, words]);
+    }, [inputValue]);
 
     const handleInput = (e: ChangeEvent) => {
         setInputValue((e.target as HTMLInputElement).value);
