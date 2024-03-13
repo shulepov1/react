@@ -1,6 +1,7 @@
+import WordType from "../../types/WordType";
 import styles from "./results.module.css";
 
-export default function Results({ words }) {
+export default function Results({ words }: { words: WordType[] }) {
     return (
         <div className={styles.results}>
             <h1>Results:</h1>

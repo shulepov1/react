@@ -1,8 +1,17 @@
 import styles from "./input.module.css";
-import { forwardRef } from "react";
+import { ChangeEvent, forwardRef } from "react";
 
-const TypingTestInput = forwardRef(
-    ({ isInputDisabled, inputValue, handleInput, setLatestKeyDown }, ref) => {
+type TypingTestInputProps = {
+    isInputDisabled: boolean;
+    inputValue: string;
+    handleInput: (e: ChangeEvent) => void;
+};
+
+const TypingTestInput = forwardRef<HTMLInputElement, TypingTestInputProps>(
+    (
+        { isInputDisabled, inputValue, handleInput }: TypingTestInputProps,
+        ref
+    ) => {
         return (
             <div className={styles.inputWrap}>
                 <input
@@ -12,9 +21,8 @@ const TypingTestInput = forwardRef(
                     disabled={isInputDisabled}
                     type="text"
                     value={inputValue}
-                    onChange={handleInput}
-                    onKeyDown={(e) => {
-                        setLatestKeyDown(e.key);
+                    onChange={(e) => {
+                        handleInput(e);
                     }}
                 />
             </div>

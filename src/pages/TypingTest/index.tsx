@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, useRef } from "react";
+import { useState, useEffect, useContext, useRef, ChangeEvent } from "react";
 import { AppContext } from "../../App";
 import { useQuery } from "react-query";
 import defaultWords from "../../data/defaultWords.ts";
@@ -7,15 +7,16 @@ import Timer from "../../components/timer/Timer.js";
 import Results from "../../components/results/Results.js";
 import TypingTestInput from "../../components/typingTestInput/TypingTestInput.js";
 import styles from "./ typingtest.module.css";
+import WordType from "../../types/WordType.ts";
 
 export default function TypingTestPage() {
     const { setActiveIndex } = useContext(AppContext);
 
     useEffect(() => {
         setActiveIndex(1);
-    }, []);
+    }, [setActiveIndex]);
 
-    const prepareArray = (arr) => {
+    const prepareArray = (arr: string[]) => {
         const wordsArray = [...arr].map((word) => {
             return {
                 text: word,
@@ -32,7 +33,7 @@ export default function TypingTestPage() {
         () =>
             fetch("https://random-word-api.herokuapp.com/word?number=100")
                 .then((response) => response.json())
-                .catch((e) => {
+                .catch(() => {
                     setWords(prepareArray(defaultWords));
                 })
     );
@@ -40,24 +41,25 @@ export default function TypingTestPage() {
     useEffect(() => {
         if (data) {
             setWords(prepareArray(data));
-            inputReference.current.focus();
+            inputReference.current?.focus();
         }
     }, [data]);
 
     const [isTestActive, setIsTestActive] = useState(false);
 
-    const [words, setWords] = useState([]);
+    const [words, setWords] = useState<WordType[]>([]);
     const [displayWords, setDisplayWords] = useState(true);
     const [currentWordIndex, setCurrentWordIndex] = useState(0);
     const [isCurrentWordWrong, setIsCurrentWordWrong] = useState(false);
 
     const [inputValue, setInputValue] = useState("");
     const [isInputDisabled, setIsInputDisabled] = useState(false);
-    const [latestKeyDown, setLatestKeyDown] = useState("");
-    const inputReference = useRef(null);
+    const inputReference = useRef<HTMLInputElement>(null);
 
-    const [timer, setTimer] = useState(10);
-    const [timeInterval, setTimeInterval] = useState(null);
+    const [timer, setTimer] = useState<number>(10);
+    const [timeInterval, setTimeInterval] = useState<number | undefined>(
+        undefined
+    );
 
     const [displayResults, setDisplayResults] = useState(false);
 
@@ -68,9 +70,7 @@ export default function TypingTestPage() {
             }, 1000)
         );
     };
-    const pauseTimer = () => {
-        clearInterval(timeInterval);
-    };
+
     const resetTimer = () => {
         setTimer(10);
         clearInterval(timeInterval);
@@ -86,10 +86,12 @@ export default function TypingTestPage() {
         setDisplayResults(false);
         setDisplayWords(true);
         refetch();
-        // inputReference.current.focus();
     };
 
     useEffect(() => {
+        const pauseTimer = () => {
+            clearInterval(timeInterval);
+        };
         if (timer === 0) {
             pauseTimer();
             setDisplayResults(true);
@@ -97,14 +99,31 @@ export default function TypingTestPage() {
             setIsInputDisabled(true);
             setIsTestActive(false);
         }
-    }, [timer]);
+    }, [timer, timeInterval]);
 
     useEffect(() => {
+        const updateIndex = () => {
+            setCurrentWordIndex((currentWordIndex) => {
+                const newWordIndex = currentWordIndex + 1;
+                if (newWordIndex >= words.length) {
+                    setWords((words) => {
+                        const words2 = JSON.parse(JSON.stringify(words));
+                        words2.forEach((word: WordType) => {
+                            word.ok = false;
+                            word.skipped = false;
+                            word.mistaken = false;
+                        });
+                        return words.concat(words2);
+                    });
+                }
+                return newWordIndex;
+            });
+        };
         if (inputValue === "" || words.length === 0) {
             setIsCurrentWordWrong(false);
             return;
         }
-        if (latestKeyDown === " ") {
+        if (inputValue[inputValue.length - 1] === " ") {
             if (inputValue === `${words[currentWordIndex].text} `) {
                 setWords((words) => {
                     const newWords = [...words];
@@ -136,33 +155,15 @@ export default function TypingTestPage() {
                 setIsCurrentWordWrong(false);
             }
         }
-    }, [inputValue]);
+    }, [inputValue, currentWordIndex, words]);
 
-    const handleInput = (e) => {
-        setInputValue(e.target.value);
+    const handleInput = (e: ChangeEvent) => {
+        setInputValue((e.target as HTMLInputElement).value);
 
         if (!isTestActive) {
             setIsTestActive(true);
             startTimer();
         }
-    };
-
-    const updateIndex = () => {
-        setCurrentWordIndex((currentWordIndex) => {
-            const newWordIndex = currentWordIndex + 1;
-            if (newWordIndex >= words.length) {
-                setWords((words) => {
-                    const words2 = JSON.parse(JSON.stringify(words));
-                    words2.forEach((word) => {
-                        word.ok = false;
-                        word.skipped = false;
-                        word.mistaken = false;
-                    });
-                    return words.concat(words2);
-                });
-            }
-            return newWordIndex;
-        });
     };
 
     return (
@@ -185,7 +186,6 @@ export default function TypingTestPage() {
                     isInputDisabled={isInputDisabled}
                     inputValue={inputValue}
                     handleInput={handleInput}
-                    setLatestKeyDown={setLatestKeyDown}
                 ></TypingTestInput>
                 {displayResults && <Results words={words}></Results>}
             </div>

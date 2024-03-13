@@ -7,7 +7,7 @@ export default function Home() {
 
     useEffect(() => {
         setActiveIndex(0);
-    }, []);
+    }, [setActiveIndex]);
     return (
         <div>
             <h1>Homepage</h1>
