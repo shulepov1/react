@@ -1,0 +1,33 @@
+.results {
+    margin-block: 2rem;
+}
+.results > h1 {
+    text-align: center;
+}
+
+.wpmWrap {
+    margin-block: 1.5rem;
+    font-size: 1.5rem;
+    text-align: center;
+}
+.wpmValue {
+    color: gold;
+}
+
+.cols {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+}
+
+.col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.colTitle {
+    font-style: italic;
+    text-decoration: underline;
+    margin-block: 1rem;
+}

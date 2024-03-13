@@ -1,0 +1,16 @@
+.inputWrap {
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+}
+.input {
+    font-size: 2rem;
+    border-radius: 1.5rem;
+    padding: 0.5rem 1rem 0.65rem 1rem;
+    border: none;
+    outline: none;
+}
+
+.input:focus {
+    outline: 2px solid gray;
+}

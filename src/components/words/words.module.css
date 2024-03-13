@@ -1,0 +1,14 @@
+.wordsWrap {
+    width: 800px;
+    height: 318px;
+    overflow: hidden;
+
+    margin-bottom: 2rem;
+}
+
+.words {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}

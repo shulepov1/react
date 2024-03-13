@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import { AppContext } from "../../App";
 import { useQuery } from "react-query";
 import defaultWords from "../../data/defaultWords.ts";
@@ -6,6 +6,7 @@ import Words from "../../components/words/Words";
 import Timer from "../../components/timer/Timer.js";
 import Results from "../../components/results/Results.js";
 import TypingTestInput from "../../components/typingTestInput/TypingTestInput.js";
+import styles from "./ typingtest.module.css";
 
 export default function TypingTestPage() {
     const { setActiveIndex } = useContext(AppContext);
@@ -39,6 +40,7 @@ export default function TypingTestPage() {
     useEffect(() => {
         if (data) {
             setWords(prepareArray(data));
+            inputReference.current.focus();
         }
     }, [data]);
 
@@ -52,6 +54,7 @@ export default function TypingTestPage() {
     const [inputValue, setInputValue] = useState("");
     const [isInputDisabled, setIsInputDisabled] = useState(false);
     const [latestKeyDown, setLatestKeyDown] = useState("");
+    const inputReference = useRef(null);
 
     const [timer, setTimer] = useState(10);
     const [timeInterval, setTimeInterval] = useState(null);
@@ -83,6 +86,7 @@ export default function TypingTestPage() {
         setDisplayResults(false);
         setDisplayWords(true);
         refetch();
+        // inputReference.current.focus();
     };
 
     useEffect(() => {
@@ -162,26 +166,29 @@ export default function TypingTestPage() {
     };
 
     return (
-        <div>
-            <Timer timer={timer} handleClick={restartTest}></Timer>
-            {displayWords && (
-                <Words
-                    words={words}
-                    currentWordIndex={currentWordIndex}
-                    isWordWrong={isCurrentWordWrong}
-                    isLoading={isLoading}
-                    isFetching={isFetching}
-                    isError={isError}
-                    error={error}
-                />
-            )}
-            <TypingTestInput
-                isInputDisabled={isInputDisabled}
-                inputValue={inputValue}
-                handleInput={handleInput}
-                setLatestKeyDown={setLatestKeyDown}
-            ></TypingTestInput>
-            {displayResults && <Results words={words}></Results>}
-        </div>
+        <main className={styles.main}>
+            <div className={styles.test}>
+                <Timer timer={timer} handleClick={restartTest}></Timer>
+                {displayWords && (
+                    <Words
+                        words={words}
+                        currentWordIndex={currentWordIndex}
+                        isWordWrong={isCurrentWordWrong}
+                        isLoading={isLoading}
+                        isFetching={isFetching}
+                        isError={isError}
+                        error={error}
+                    />
+                )}
+                <TypingTestInput
+                    ref={inputReference}
+                    isInputDisabled={isInputDisabled}
+                    inputValue={inputValue}
+                    handleInput={handleInput}
+                    setLatestKeyDown={setLatestKeyDown}
+                ></TypingTestInput>
+                {displayResults && <Results words={words}></Results>}
+            </div>
+        </main>
     );
 }

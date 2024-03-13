@@ -1,0 +1,31 @@
+.timer {
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.timer div:has(.resetBtn) {
+    display: flex;
+    align-items: center;
+    /* margin-top: 2px; */
+}
+
+.timerSec {
+    color: gold;
+}
+
+.resetBtn {
+    background-color: transparent;
+    color: white;
+    border: transparent;
+    padding: 0.5rem 0.5rem 0.35rem 0.5rem;
+    border-radius: 0.35rem;
+
+    transition: all 0.15s;
+}
+.resetBtn:hover {
+    cursor: pointer;
+    background-color: rgba(128, 128, 128, 0.586);
+}

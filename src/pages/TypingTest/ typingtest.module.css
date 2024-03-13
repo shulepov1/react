@@ -1,0 +1,11 @@
+.main {
+    display: grid;
+    place-content: center;
+
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.test {
+    width: 800px;
+    /* outline: 1px solid red; */
+}

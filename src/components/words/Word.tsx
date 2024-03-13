@@ -1,17 +1,28 @@
+import { forwardRef } from "react";
 import styles from "./word.module.css";
 
-export default function Word({ word, isCurrent, isWordWrong }) {
+const Word = forwardRef(({ word, isCurrent, isWordWrong }, ref) => {
+    let wordWrapClass = styles.wordWrap;
+    let wordClass = "";
+    let wordRef = null;
+
     if (word.skipped === true) {
-        return <span className={styles.wordWrongSkipped}>{word.text}</span>;
+        wordClass = styles.wordWrongSkipped;
+    } else if (word.ok === true) {
+        wordClass = styles.wordOk;
+    } else if (isCurrent) {
+        wordRef = ref;
+        wordClass = isWordWrong ? styles.wordWrong : styles.wordCurrent;
+        wordWrapClass = isWordWrong ? styles.wordWrongWrap : styles.wordWrap;
     }
-    if (word.ok === true) {
-        return <span className={styles.wordOk}>{word.text}</span>;
-    }
-    if (isCurrent) {
-        if (isWordWrong) {
-            return <span className={styles.wordWrong}>{word.text}</span>;
-        }
-        return <span className={styles.wordCurrent}>{word.text}</span>;
-    }
-    return <span>{word.text}</span>;
-}
+
+    return (
+        <div className={wordWrapClass}>
+            <div ref={wordRef} className={wordClass}>
+                {word.text}
+            </div>
+        </div>
+    );
+});
+
+export default Word;
