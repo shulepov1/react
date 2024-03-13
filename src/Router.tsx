@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import Home from "./pages/Home";
-import Testpage from "./pages/Testpage";
+import TypingTestPage from "./pages/TypingTest";
 
 export default function Router() {
     const router = createBrowserRouter([
@@ -14,8 +14,8 @@ export default function Router() {
                     element: <Home></Home>,
                 },
                 {
-                    path: "testpage",
-                    element: <Testpage></Testpage>,
+                    path: "typing",
+                    element: <TypingTestPage></TypingTestPage>,
                 },
             ],
         },

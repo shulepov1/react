@@ -16,26 +16,20 @@ export default function Navbar() {
                                 ? styles.navlinkActive
                                 : styles.navlink
                         }
-                        onClick={() => {
-                            setActiveIndex(0);
-                        }}
                     >
                         Home
                     </Link>
                 </li>
                 <li>
                     <Link
-                        to="testpage"
+                        to="typing"
                         className={
                             activeIndex === 1
                                 ? styles.navlinkActive
                                 : styles.navlink
                         }
-                        onClick={() => {
-                            setActiveIndex(1);
-                        }}
                     >
-                        Testpage
+                        Typing Test
                     </Link>
                 </li>
             </ul>
