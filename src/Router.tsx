@@ -14,7 +14,7 @@ export default function Router() {
                     element: <Home></Home>,
                 },
                 {
-                    path: "typing",
+                    path: "/typing",
                     element: <TypingTestPage></TypingTestPage>,
                 },
             ],
