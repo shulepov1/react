@@ -32,6 +32,18 @@ export default function Navbar() {
                         Typing Test
                     </Link>
                 </li>
+                <li>
+                    <Link
+                        to="players"
+                        className={
+                            activeIndex === 2
+                                ? styles.navlinkActive
+                                : styles.navlink
+                        }
+                    >
+                        Basketball Players
+                    </Link>
+                </li>
             </ul>
         </nav>
     );

@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import Home from "./pages/Home";
 import TypingTestPage from "./pages/TypingTest";
+import BasketballPlayersPage from "./pages/BasketballPlayers";
 
 export default function Router() {
     const router = createBrowserRouter([
@@ -17,6 +18,10 @@ export default function Router() {
                     path: "/typing",
                     element: <TypingTestPage></TypingTestPage>,
                 },
+                {
+                    path: "/players",
+                    element: <BasketballPlayersPage></BasketballPlayersPage>
+                }
             ],
         },
     ]);
