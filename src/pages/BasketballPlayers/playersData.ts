@@ -23,6 +23,10 @@ const playersData: PlayerType[] = [
         name: "Nikola Jokic",
         position: "C",
         number: 15,
+    },{
+        name: "Manu Ginobili",
+        position: "PG",
+        number: 15,
     },
 ];
 export default playersData;

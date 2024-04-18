@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import playersData from "./playersData.ts";
 import PlayerCards from "../../components/players/PlayerCards.tsx";
 import styled from "styled-components";
+import PlayerOptionPositions from "../../components/players/PlayerOptionPositions.tsx";
 
 const Page = styled.div`
     display: flex;
@@ -23,19 +24,35 @@ export default function BasketballPlayersPage() {
     const { setActiveIndex } = useContext(AppContext);
 
     const [query, setQuery] = useState("");
+    const [chosenPosition, setChosenPosition] = useState("");
 
+    function handlePositionButtonClick(e) {
+        const newPos = e.target.textContent;
+        if (newPos === chosenPosition) {
+            setChosenPosition("");
+        } else {
+            setChosenPosition(newPos);
+        }
+    }
     useEffect(() => {
         setActiveIndex(2);
     }, [setActiveIndex]);
-
     return (
         <Page>
             <InputContainer>
                 <input type="text" onInput={(e) => setQuery(e.target.value)} />
                 <div>you searched: {query}</div>
             </InputContainer>
-
-            <PlayerCards playersData={playersData} query={query} />
+            <PlayerOptionPositions
+                onClick={handlePositionButtonClick}
+                chosenPosition={chosenPosition}
+            ></PlayerOptionPositions>
+            {chosenPosition}
+            <PlayerCards
+                playersData={playersData}
+                query={query}
+                chosenPosition={chosenPosition}
+            />
         </Page>
     );
 }

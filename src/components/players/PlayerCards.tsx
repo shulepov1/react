@@ -12,7 +12,7 @@ const Cards = styled.div`
     max-width: 600px;
 `;
 
-export default function PlayerCards({ playersData, query }) {
+export default function PlayerCards({ playersData, query, chosenPosition }) {
     useEffect(() => {
         setPlayers(playersData);
     }, []);
@@ -23,6 +23,14 @@ export default function PlayerCards({ playersData, query }) {
         <Cards>
             {players
                 .filter((player) => {
+                    const res =
+                        player.name
+                            .toLowerCase()
+                            .includes(query.toLowerCase()) ||
+                        player.number.toString().includes(query);
+                    if (chosenPosition) {
+                        return res && player.position == chosenPosition;
+                    }
                     return (
                         player.name
                             .toLowerCase()
