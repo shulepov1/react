@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import PlayerType from "../../types/PlayerType.ts";
 import PlayerCard from "./PlayerCard.tsx";
 import styled from "styled-components";
+import usePlayerData from "../../hooks/usePlayersData.tsx";
 
 const Cards = styled.div`
     margin-top: 1rem;
@@ -12,13 +13,13 @@ const Cards = styled.div`
     max-width: 600px;
 `;
 
-export default function PlayerCards({ playersData, query, chosenPosition }) {
-    useEffect(() => {
-        setPlayers(playersData);
-    }, []);
-
-    const [players, setPlayers] = useState<PlayerType[]>([]);
-
+export default function PlayerCards({
+    players,
+    setPlayers,
+    playersData,
+    query,
+    chosenPosition,
+}) {
     return (
         <Cards>
             {players
