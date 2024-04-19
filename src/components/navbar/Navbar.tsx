@@ -44,6 +44,18 @@ export default function Navbar() {
                         Basketball Players
                     </Link>
                 </li>
+                <li>
+                    <Link
+                        to="weather"
+                        className={
+                            activeIndex === 3
+                                ? styles.navlinkActive
+                                : styles.navlink
+                        }
+                    >
+                        Weather
+                    </Link>
+                </li>
             </ul>
         </nav>
     );

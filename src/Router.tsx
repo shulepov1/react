@@ -3,6 +3,7 @@ import App from "./App";
 import Home from "./pages/Home";
 import TypingTestPage from "./pages/TypingTest";
 import BasketballPlayersPage from "./pages/BasketballPlayers";
+import WeatherPage from "./pages/Weather";
 
 export default function Router() {
     const router = createBrowserRouter([
@@ -20,8 +21,12 @@ export default function Router() {
                 },
                 {
                     path: "/players",
-                    element: <BasketballPlayersPage></BasketballPlayersPage>
-                }
+                    element: <BasketballPlayersPage></BasketballPlayersPage>,
+                },
+                {
+                    path: "/weather",
+                    element: <WeatherPage></WeatherPage>,
+                },
             ],
         },
     ]);
