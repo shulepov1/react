@@ -1,18 +1,14 @@
-import { useState, useEffect, useContext, useRef } from "react";
+import { useState, useEffect, useContext } from "react";
 import { AppContext } from "../../App";
 import { useQuery } from "react-query";
-
-interface WeatherData {
-    country: string;
-    city: string;
-    feelslike_c: number;
-    feelslike_f: number;
-    temp_c: number;
-    temp_f: number;
-    humidity: number;
-    wind_kph: number;
-    wind_mph: number;
-}
+import styles from "./index.module.scss";
+import type {
+    weatherDataType,
+    temperatureUnitType,
+    speedUnitType,
+} from "../../types/WeatherDataType.ts";
+import WeatherControllers from "./WeatherControllers.tsx";
+import WeatherDisplay from "./WeatherDisplay.tsx";
 
 export default function WeatherPage() {
     const { setActiveIndex } = useContext(AppContext);
@@ -20,7 +16,7 @@ export default function WeatherPage() {
         setActiveIndex(3);
     }, [setActiveIndex]);
 
-    const [weatherData, setWeatherData] = useState<WeatherData>({
+    const [weatherData, setWeatherData] = useState<weatherDataType>({
         country: "",
         city: "",
         feelslike_c: -1,
@@ -32,8 +28,9 @@ export default function WeatherPage() {
         wind_mph: -1,
     });
     const [location, setLocation] = useState("Moscow");
-    const [temperatureUnit, setTemperatureUnit] = useState("C");
-    const [speedUnit, setSpeedUnit] = useState("km/h");
+    const [temperatureUnit, setTemperatureUnit] =
+        useState<temperatureUnitType>("C");
+    const [speedUnit, setSpeedUnit] = useState<speedUnitType>("km/h");
     const [isFetchingError, setIsFetchingError] = useState(false);
 
     const { isLoading, isError, isFetching, error } = useQuery(
@@ -68,89 +65,28 @@ export default function WeatherPage() {
         }
     );
 
-    const inputRef = useRef(null);
     if (isLoading || isFetching) return <h1>Loading...</h1>;
     if (isError) {
         console.log((error as Error).message);
         return <h1>Error!</h1>;
     }
     return (
-        <div>
-            <form
-                onSubmit={(e) => {
-                    e.preventDefault();
-                    if (inputRef.current != null) {
-                        setLocation(
-                            (inputRef.current as HTMLFormElement).value
-                        );
-                    }
-                }}
-            >
-                <label htmlFor="location">location</label>
-                <input
-                    id="location"
-                    type="text"
-                    ref={inputRef}
-                    placeholder="Moscow, Russia"
-                />
-                <input type="submit" value="Go!" />
-            </form>
-            <div>
-                <button
-                    onClick={() => {
-                        setTemperatureUnit((currUnit) => {
-                            return currUnit === "C" ? "F" : "C";
-                        });
-                    }}
-                >
-                    °{temperatureUnit}
-                </button>
-                <button
-                    onClick={() => {
-                        setSpeedUnit((speedUnit) => {
-                            return speedUnit === "km/h" ? "m/h" : "km/h";
-                        });
-                    }}
-                >
-                    {speedUnit}
-                </button>
+        <div className={styles.main}>
+            <div className={styles.content}>
+                <WeatherControllers
+                    setLocation={setLocation}
+                    temperatureUnit={temperatureUnit}
+                    setTemperatureUnit={setTemperatureUnit}
+                    speedUnit={speedUnit}
+                    setSpeedUnit={setSpeedUnit}
+                ></WeatherControllers>
+                <WeatherDisplay
+                    isFetchingError={isFetchingError}
+                    weatherData={weatherData}
+                    temperatureUnit={temperatureUnit}
+                    speedUnit={speedUnit}
+                ></WeatherDisplay>
             </div>
-            weather
-            {isFetchingError ? (
-                <div>
-                    <p>nothing was found</p>
-                    <p>try again</p>
-                </div>
-            ) : (
-                <div>
-                    <div>country {weatherData.country}</div>
-                    <div>city {weatherData.city}</div>
-                    <div>
-                        temperature{" "}
-                        {temperatureUnit === "C"
-                            ? weatherData.temp_c
-                            : weatherData.temp_f}
-                        {" °"}
-                        {temperatureUnit}
-                    </div>
-                    <div>
-                        feels like{" "}
-                        {temperatureUnit === "C"
-                            ? weatherData.feelslike_c
-                            : weatherData.feelslike_f}
-                        {" °"}
-                        {temperatureUnit}
-                    </div>
-                    <div>humidity {weatherData.humidity}%</div>
-                    <div>
-                        wind speed{" "}
-                        {speedUnit === "km/h"
-                            ? weatherData.wind_kph
-                            : weatherData.wind_mph}{" "}
-                        {speedUnit}
-                    </div>
-                </div>
-            )}
         </div>
     );
 }
