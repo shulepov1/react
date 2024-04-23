@@ -1,14 +1,21 @@
+import { MouseEvent } from "react";
 import styled from "styled-components";
 
-const PositionContainer = styled.button`
+interface PositionContainer {
+    positionProp: string;
+    chosenPosition: string;
+    onClick: (event: MouseEvent) => void;
+}
+const PositionContainer = styled.button<PositionContainer>`
     color: ${(props) =>
-        props.position === props.chosenPosition ? "red" : "black"};
+        props.positionProp === props.chosenPosition ? "red" : "black"};
 `;
 
-type PlayerOptionPosition = {
+interface PlayerOptionPosition {
     position: string;
-    onClick: (value: string) => void;
-};
+    chosenPosition: string;
+    onClick: (event: MouseEvent) => void;
+}
 
 export default function PlayerOptionPosition({
     position,
@@ -17,7 +24,7 @@ export default function PlayerOptionPosition({
 }: PlayerOptionPosition) {
     return (
         <PositionContainer
-            position={position}
+            positionProp={position}
             chosenPosition={chosenPosition}
             onClick={onClick}
         >

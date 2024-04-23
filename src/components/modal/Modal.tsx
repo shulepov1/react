@@ -27,7 +27,13 @@ const Close = styled.span`
     color: black;
 `;
 
-export default function Modal({ isOpen, onClose, children }) {
+interface ModalProps {
+    isOpen: boolean;
+    onClose: () => void;
+    children: JSX.Element | JSX.Element[];
+}
+
+export default function Modal({ isOpen, onClose, children }: ModalProps) {
     useEffect(() => {
         const handleEscape = (event: KeyboardEvent) => {
             if (event.key === "Escape") {

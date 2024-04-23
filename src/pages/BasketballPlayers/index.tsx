@@ -1,5 +1,11 @@
 import { AppContext } from "../../App";
-import { useState, useEffect, useContext } from "react";
+import {
+    useState,
+    useEffect,
+    useContext,
+    ChangeEvent,
+    MouseEvent,
+} from "react";
 import playersData from "./playersData.ts";
 import PlayerCards from "../../components/players/PlayerCards.tsx";
 import styled from "styled-components";
@@ -38,14 +44,19 @@ export default function BasketballPlayersPage() {
 
     const [players, setPlayers] = usePlayerData();
 
-    function handlePositionButtonClick(e) {
-        const newPos = e.target.textContent;
-        if (newPos === chosenPosition) {
+    function handlePositionButtonClick(event: MouseEvent) {
+        const input = event.target as HTMLButtonElement;
+        const newPosition = input.textContent;
+        if (newPosition === null) {
+            return;
+        }
+        if (newPosition === chosenPosition) {
             setChosenPosition("");
         } else {
-            setChosenPosition(newPos);
+            setChosenPosition(newPosition);
         }
     }
+
     useEffect(() => {
         setActiveIndex(2);
     }, [setActiveIndex]);
@@ -68,7 +79,13 @@ export default function BasketballPlayersPage() {
                 ></AddPlayerForm>
             </Modal>
             <InputContainer>
-                <input type="text" onInput={(e) => setQuery(e.target.value)} />
+                <input
+                    type="text"
+                    onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                        const input = event.target;
+                        setQuery(input.value);
+                    }}
+                />
                 <div>you searched: {query}</div>
             </InputContainer>
             <PlayerOptionPositions
@@ -78,7 +95,6 @@ export default function BasketballPlayersPage() {
             {chosenPosition}
             <PlayerCards
                 players={players}
-                setPlayers={setPlayers}
                 query={query}
                 chosenPosition={chosenPosition}
             />

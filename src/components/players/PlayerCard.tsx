@@ -1,7 +1,10 @@
-import PlayerCardType from "../../types/PlayerCardType";
+import PlayerType from "../../types/PlayerType";
 import styled from "styled-components";
 
-const Card = styled.div`
+interface Card {
+    position: PlayerType["position"];
+}
+const Card = styled.div<Card>`
     padding: 1rem;
     border: 2px solid white;
     border-radius: 1rem;
@@ -28,7 +31,7 @@ const Card = styled.div`
     }};
 `;
 
-export default function PlayerCard({ name, position, number }: PlayerCardType) {
+export default function PlayerCard({ name, position, number }: PlayerType) {
     return (
         <Card position={position}>
             <div>

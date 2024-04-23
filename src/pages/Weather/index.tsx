@@ -2,19 +2,41 @@ import { useState, useEffect, useContext, useRef } from "react";
 import { AppContext } from "../../App";
 import { useQuery } from "react-query";
 
+interface WeatherData {
+    country: string;
+    city: string;
+    feelslike_c: number;
+    feelslike_f: number;
+    temp_c: number;
+    temp_f: number;
+    humidity: number;
+    wind_kph: number;
+    wind_mph: number;
+}
+
 export default function WeatherPage() {
     const { setActiveIndex } = useContext(AppContext);
     useEffect(() => {
         setActiveIndex(3);
-    }, []);
+    }, [setActiveIndex]);
 
-    const [weatherData, setWeatherData] = useState({});
+    const [weatherData, setWeatherData] = useState<WeatherData>({
+        country: "",
+        city: "",
+        feelslike_c: -1,
+        feelslike_f: -1,
+        temp_c: -1,
+        temp_f: -1,
+        humidity: -1,
+        wind_kph: -1,
+        wind_mph: -1,
+    });
     const [location, setLocation] = useState("Moscow");
     const [temperatureUnit, setTemperatureUnit] = useState("C");
     const [speedUnit, setSpeedUnit] = useState("km/h");
     const [isFetchingError, setIsFetchingError] = useState(false);
 
-    const { isLoading, isError, isFetching, data, error, refetch } = useQuery(
+    const { isLoading, isError, isFetching, error } = useQuery(
         ["weather", location],
         () => {
             console.log("LOCATION", location);
@@ -57,7 +79,11 @@ export default function WeatherPage() {
             <form
                 onSubmit={(e) => {
                     e.preventDefault();
-                    setLocation(inputRef.current.value);
+                    if (inputRef.current != null) {
+                        setLocation(
+                            (inputRef.current as HTMLFormElement).value
+                        );
+                    }
                 }}
             >
                 <label htmlFor="location">location</label>

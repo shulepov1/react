@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import PlayerOptionPosition from "./PlayerOptionPosition";
+import { MouseEvent } from "react";
 
 type Props = {
-    onClick: (value: string) => void;
+    onClick: (event: MouseEvent) => void;
     chosenPosition: string;
-    position: string;
 };
 
 const Positions = styled.div`
@@ -18,31 +18,15 @@ export default function PlayerOptionPositions({
 }: Props) {
     return (
         <Positions>
-            <PlayerOptionPosition
-                position={"PG"}
-                onClick={onClick}
-                chosenPosition={chosenPosition}
-            ></PlayerOptionPosition>
-            <PlayerOptionPosition
-                position={"SG"}
-                onClick={onClick}
-                chosenPosition={chosenPosition}
-            ></PlayerOptionPosition>
-            <PlayerOptionPosition
-                position={"SF"}
-                onClick={onClick}
-                chosenPosition={chosenPosition}
-            ></PlayerOptionPosition>
-            <PlayerOptionPosition
-                position={"PF"}
-                onClick={onClick}
-                chosenPosition={chosenPosition}
-            ></PlayerOptionPosition>
-            <PlayerOptionPosition
-                position={"C"}
-                onClick={onClick}
-                chosenPosition={chosenPosition}
-            ></PlayerOptionPosition>
+            {["PG", "SG", "SF", "PF", "C"].map((position) => {
+                return (
+                    <PlayerOptionPosition
+                        position={position}
+                        chosenPosition={chosenPosition}
+                        onClick={onClick}
+                    ></PlayerOptionPosition>
+                );
+            })}
         </Positions>
     );
 }

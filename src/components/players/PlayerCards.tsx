@@ -1,8 +1,6 @@
-import { useState, useEffect, useContext } from "react";
 import PlayerType from "../../types/PlayerType.ts";
 import PlayerCard from "./PlayerCard.tsx";
 import styled from "styled-components";
-import usePlayerData from "../../hooks/usePlayersData.tsx";
 
 const Cards = styled.div`
     margin-top: 1rem;
@@ -12,14 +10,17 @@ const Cards = styled.div`
     flex-wrap: wrap;
     max-width: 600px;
 `;
+interface PlayerCardsProps {
+    players: PlayerType[];
+    query: string;
+    chosenPosition: string;
+}
 
 export default function PlayerCards({
     players,
-    setPlayers,
-    playersData,
     query,
     chosenPosition,
-}) {
+}: PlayerCardsProps) {
     return (
         <Cards>
             {players

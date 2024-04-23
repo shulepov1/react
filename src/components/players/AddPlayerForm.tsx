@@ -1,13 +1,23 @@
-import { useRef, useEffect } from "react";
+import { FormEvent, useRef } from "react";
 import styled from "styled-components";
-import usePlayerData from "../../hooks/usePlayersData";
+import PlayerType from "../../types/PlayerType";
 
-type Props = {
-    modalState: "opened" | "closed";
-    setModalState: (modalState: "opened" | "closed") => void;
-};
+interface AddPlayerFormProps {
+    players: PlayerType[];
+    setPlayers: (players: PlayerType[]) => void;
+    onClose: () => void;
+}
+interface FormElements extends HTMLFormElement {
+    playerName: HTMLInputElement; // 'name' property is used in HTMLFormElement
+    position: HTMLInputElement;
+    number: HTMLInputElement;
+}
 
-export default function AddPlayerForm({ players, setPlayers, onClose }) {
+export default function AddPlayerForm({
+    players,
+    setPlayers,
+    onClose,
+}: AddPlayerFormProps) {
     const Modal = styled.div`
         border: 1px solid blue;
         border-radius: 1rem;
@@ -18,17 +28,28 @@ export default function AddPlayerForm({ players, setPlayers, onClose }) {
     `;
 
     const formRef = useRef<HTMLFormElement>(null);
-    const addPlayer = (playerData) => {
+    const addPlayer = (playerData: PlayerType) => {
         setPlayers([...players, playerData]);
     };
-    const handleSubmit = (event) => {
+    const handleSubmit = (event: FormEvent) => {
         event.preventDefault();
-        const { name, position, number } = event.target.elements;
-        addPlayer({
-            name: name.value,
-            position: position.value,
-            number: number.value,
-        });
+        const form = event.target as HTMLFormElement;
+        const { playerName, position, number } =
+            form.elements as unknown as FormElements;
+        if (
+            position.value === "PG" ||
+            position.value === "SG" ||
+            position.value === "SF" ||
+            position.value === "PF" ||
+            position.value === "C"
+        ) {
+            addPlayer({
+                name: playerName.value,
+                position: position.value,
+                number: Number(number.value),
+            });
+        }
+
         onClose();
     };
 

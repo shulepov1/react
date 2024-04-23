@@ -1,8 +1,12 @@
 import { useState } from "react";
 import playersData from "../pages/BasketballPlayers/playersData";
+import PlayerType from "../types/PlayerType";
 
-const usePlayerData = () => {
-    const [playerData, setPlayerData] = useState(() => {
+// can either be an array or a function that takes in an array
+type SetPlayersProps = PlayerType[] | ((data: PlayerType[]) => PlayerType[]);
+
+const usePlayerData = (): [PlayerType[], (data: SetPlayersProps) => void] => {
+    const [playerData, setPlayerData] = useState((): PlayerType[] => {
         try {
             const localStoragePlayers = localStorage.getItem("playerData");
             return localStoragePlayers
@@ -13,8 +17,7 @@ const usePlayerData = () => {
             return playerData;
         }
     });
-
-    const setPlayers = (value) => {
+    const setPlayers = (value: SetPlayersProps) => {
         try {
             const newPlayers =
                 value instanceof Function ? value(playerData) : value;
