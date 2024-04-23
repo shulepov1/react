@@ -56,7 +56,8 @@ export default function TypingTestPage() {
     const [isInputDisabled, setIsInputDisabled] = useState(false);
     const inputReference = useRef<HTMLInputElement>(null);
 
-    const [timer, setTimer] = useState<number>(10);
+    const DEFAULT_TIMER_VALUE = 30;
+    const [timer, setTimer] = useState<number>(DEFAULT_TIMER_VALUE);
     const [timeInterval, setTimeInterval] = useState<number | undefined>(
         undefined
     );
@@ -72,7 +73,7 @@ export default function TypingTestPage() {
     };
 
     const resetTimer = () => {
-        setTimer(10);
+        setTimer(DEFAULT_TIMER_VALUE);
         clearInterval(timeInterval);
     };
 
