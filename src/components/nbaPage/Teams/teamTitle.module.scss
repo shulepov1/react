@@ -1,0 +1,40 @@
+.teamTitleContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.678);
+  border-radius: 15px;
+}
+.nameRow {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+}
+.city {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.702);
+  text-transform: lowercase;
+}
+.name {
+  text-transform: uppercase;
+}
+
+.confRow {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: 11px;
+  justify-content: center;
+  color: rgba(255, 248, 248, 0.702);
+}
+.buttonEye {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+}
+.buttonEye:hover {
+  filter: brightness(1.5);
+}

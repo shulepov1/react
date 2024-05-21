@@ -1,47 +1,49 @@
-import { useState, useEffect, useContext } from "react";
+import { useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../App";
 import { useQuery } from "@tanstack/react-query";
-import Teams from "../../components/nbaPage/Teams/Teams";
 import styles from "./index.module.scss";
 
-export default function NBAStatsPage() {
+export default function NBAPlayerPage() {
   const { setActiveIndex } = useContext(AppContext);
+  const params = useParams();
+
+  const [stats, setStats] = useState([]);
 
   useEffect(() => {
-    setActiveIndex(4);
+    setActiveIndex(-1);
   }, [setActiveIndex]);
 
-  useEffect(() => {
-    if (data) {
-      setTeams(data);
-    }
-  }, []);
-
-  const [teams, setTeams] = useState([]);
-  const [originalTeams, setOriginalTeams] = useState([]);
+  //   useEffect(() => {
+  //     if (data) {
+  //       setStats(data);
+  //     }
+  //   }, []);
 
   const { isPending, isError, isFetching, data, error, refetch } = useQuery({
-    queryKey: ["standings"],
+    queryKey: [`player${params.id}`],
     queryFn: async () => {
-      const t = await fetch("https://api.balldontlie.io/v1/teams", {
-        headers: {
-          Authorization: import.meta.env.VITE_API_KEY_NBA,
-        },
-      })
+      const p = await fetch(
+        `https://api.balldontlie.io/v1/stats?seasons[]=2024&player_ids[]=${params.id}&postseason=false`,
+        {
+          headers: {
+            Authorization: import.meta.env.VITE_API_KEY_NBA,
+          },
+        }
+      )
         .then((response) => response.json())
         .then((data) => {
-          setTeams(data.data);
-          setOriginalTeams(data.data);
+          console.log("_data", data);
+          setStats(data.data);
           return data.data;
         })
         .catch((e) => {
           console.log(e);
         });
-      return t;
+      return p;
     },
-    staleTime: 3600000,
+    staleTime: 0,
   });
-
   if (isPending || isFetching) {
     return (
       <main className={styles.page}>
@@ -63,16 +65,10 @@ export default function NBAStatsPage() {
       </div>
     );
   }
-
+  console.log("DATA", data);
   return (
-    <main className={styles.page}>
-      <div className={styles.container}>
-        <Teams
-          originalTeams={originalTeams}
-          teams={teams}
-          setTeams={setTeams}
-        ></Teams>
-      </div>
-    </main>
+    <div>
+      <div></div>
+    </div>
   );
 }

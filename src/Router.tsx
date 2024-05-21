@@ -5,6 +5,7 @@ import TypingTestPage from "./pages/TypingTest";
 import BasketballPlayersPage from "./pages/BasketballPlayers";
 import WeatherPage from "./pages/Weather";
 import NBAStatsPage from "./pages/NBAStats";
+import NBAPlayerPage from "./pages/NBAPlayer";
 
 export default function Router() {
   const router = createBrowserRouter([
@@ -31,6 +32,10 @@ export default function Router() {
         {
           path: "/nbastats",
           element: <NBAStatsPage></NBAStatsPage>,
+        },
+        {
+          path: "/player/:id",
+          element: <NBAPlayerPage></NBAPlayerPage>,
         },
       ],
     },

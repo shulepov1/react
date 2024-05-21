@@ -1,0 +1,3 @@
+{
+  "plugins": ["@tanstack/query"]
+}

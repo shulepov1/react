@@ -1,0 +1,30 @@
+.loading {
+  color: white;
+}
+
+.teamName {
+  font-size: 1.5rem;
+  text-decoration: underline;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.players {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.player {
+  display: grid;
+  grid-template-columns: 2ch 200px 5ch max-content;
+  column-gap: 1rem;
+}
+
+.player a {
+  text-decoration: underline;
+  color: white;
+}
+.player a:hover {
+  color: rgba(255, 255, 255, 0.62);
+}

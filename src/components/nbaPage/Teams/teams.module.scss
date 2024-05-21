@@ -1,0 +1,28 @@
+.title {
+  text-align: center;
+
+  margin-bottom: 1rem;
+}
+
+.options {
+  display: flex;
+  gap: 5rem;
+
+  margin-bottom: 2rem;
+  justify-content: center;
+}
+
+.mainCont {
+  display: grid;
+  grid-template-columns: 5fr 2fr;
+  gap: 3rem;
+  justify-items: center;
+}
+
+.teamsCont {
+  max-width: 1000px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(50px, 250px));
+  column-gap: 5rem;
+  row-gap: 1rem;
+}
