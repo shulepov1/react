@@ -9,40 +9,51 @@ export default function NBAPlayerPage() {
   const params = useParams();
 
   const [stats, setStats] = useState([]);
+  const [player, setPlayer] = useState([]);
 
   useEffect(() => {
     setActiveIndex(-1);
   }, [setActiveIndex]);
 
-  //   useEffect(() => {
-  //     if (data) {
-  //       setStats(data);
-  //     }
-  //   }, []);
+  useEffect(() => {
+    if (data) {
+      console.log("already data", data);
+      setStats(data[0]);
+      setPlayer(data[1]);
+    }
+  }, []);
 
   const { isPending, isError, isFetching, data, error, refetch } = useQuery({
     queryKey: [`player${params.id}`],
     queryFn: async () => {
-      const p = await fetch(
-        `https://api.balldontlie.io/v1/stats?seasons[]=2024&player_ids[]=${params.id}&postseason=false`,
-        {
-          headers: {
-            Authorization: import.meta.env.VITE_API_KEY_NBA,
-          },
-        }
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("_data", data);
-          setStats(data.data);
-          return data.data;
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-      return p;
+      const [stts, plyr] = await Promise.all([
+        fetch(
+          `https://api.balldontlie.io/v1/stats?seasons[]=2023&player_ids[]=${params.id}&postseason=false`,
+          {
+            headers: {
+              Authorization: import.meta.env.VITE_API_KEY_NBA,
+            },
+          }
+        )
+          .then((res) => res.json())
+          .then((data) => data),
+        fetch(
+          `https://api.balldontlie.io/v1/players?player_ids[]=${params.id}`,
+          {
+            headers: {
+              Authorization: import.meta.env.VITE_API_KEY_NBA,
+            },
+          }
+        )
+          .then((res) => res.json())
+          .then((data) => data),
+      ]);
+      setStats(stts.data);
+      setPlayer(plyr.data[0]);
+      console.log(stts.data, plyr.data);
+      return [stts.data, plyr.data[0]];
     },
-    staleTime: 0,
+    staleTime: 3600000,
   });
   if (isPending || isFetching) {
     return (
@@ -51,7 +62,7 @@ export default function NBAPlayerPage() {
       </main>
     );
   }
-  if (isError && error) {
+  if ((isError && error) || data.length === 0) {
     return (
       <div>
         <div>Error has occured: {error.message}</div>
@@ -65,10 +76,78 @@ export default function NBAPlayerPage() {
       </div>
     );
   }
-  console.log("DATA", data);
+  console.log("rendering stats", stats);
   return (
     <div>
-      <div></div>
+      <div className={styles.playerInfo}>
+        <h2>Info</h2>
+        <div>
+          {player.first_name} {player.last_name}
+        </div>
+        <div>
+          {player.college}, {player.country}
+        </div>
+        <div>draft year: {player.draft_year}</div>
+        <div>draft number: {player.draft_number}</div>
+        <div>height: {player.height}</div>
+        <div>weight: {player.weight} lbs</div>
+        <div>jersey number: {player.jersey_number}</div>
+        <div>position: {player.position}</div>
+      </div>
+      <div>
+        <h2>Games</h2>
+        <table>
+          <caption>last 25 games of 2023/2024 season</caption>
+          <thead>
+            <tr>
+              <th scope="col">Data</th>
+              <th scope="col">Min</th>
+              <th scope="col">PTS</th>
+              <th scope="col">AST</th>
+              <th scope="col">REB</th>
+              <th scope="col">BLK</th>
+              <th scope="col">STL</th>
+              <th scope="col">OREB</th>
+              <th scope="col">DREB</th>
+              <th scope="col">3pt %</th>
+              <th scope="col">3pt made</th>
+              <th scope="col">3pt tried</th>
+              <th scope="col">fg %</th>
+              <th scope="col">fg made</th>
+              <th scope="col">fg tried</th>
+              <th scope="col">ft %</th>
+              <th scope="col">ft made</th>
+              <th scope="col">ft tried</th>
+            </tr>
+          </thead>
+          <tbody>
+            {stats.map((stat) => {
+              return (
+                <tr>
+                  <td scope="row">{stat.game.date}</td>
+                  <td>{stat.min}</td>
+                  <td>{stat.pts}</td>
+                  <td>{stat.ast}</td>
+                  <td>{stat.reb}</td>
+                  <td>{stat.blk}</td>
+                  <td>{stat.stl}</td>
+                  <td>{stat.oreb}</td>
+                  <td>{stat.dreb}</td>
+                  <td>{stat.fg3_pct.toFixed(2)}</td>
+                  <td>{stat.fg3m}</td>
+                  <td>{stat.fg3a}</td>
+                  <td>{stat.fg_pct.toFixed(2)}</td>
+                  <td>{stat.fgm}</td>
+                  <td>{stat.fga}</td>
+                  <td>{stat.ft_pct.toFixed(2)}</td>
+                  <td>{stat.ftm}</td>
+                  <td>{stat.fta}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

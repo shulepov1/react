@@ -82,12 +82,13 @@ export default function Teams({ originalTeams, teams, setTeams }) {
           })}
         </div>
         <div>
-          {isShowingTeam && (
-            <TeamView
-              index={chosenTeamIndex}
-              team={teams.find((team) => team.id === chosenTeamIndex)}
-            />
-          )}
+          {isShowingTeam &&
+            teams.find((team) => team.id === chosenTeamIndex) && (
+              <TeamView
+                index={chosenTeamIndex}
+                team={teams.find((team) => team.id === chosenTeamIndex)}
+              />
+            )}
         </div>
       </div>
     </div>
