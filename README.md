@@ -1,30 +1,38 @@
-# React + TypeScript + Vite
+# React мини(-мини)-проекты
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Набор небольших мини-проектов для практики React, его экосистемы и TypeScript.
 
-Currently, two official plugins are available:
+**Ссылка: [URL](https://664e1f8e223582007944dfb2--voluble-souffle-78badf.netlify.app/)** (деплой на Netlify)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Стэк
 
-## Expanding the ESLint configuration
+- React
+  - React Router
+  - React-Query (Tanstack query)
+- Vite
+- TypeScript
+- Styled Components (CSS-in-JS)
+- SCSS, CSS модули
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Структура
 
-- Configure the top-level `parserOptions` property like this:
+0. Homepage, "рекурсивный" компонент.
+1. Typing Test (по типу [MonkeyType](https://monkeytype.com/))
+2. Basketball Players Cards (простейшая фильтрация, поиск, работа с Local Storage).
+3. Weather (фетч данных с [WeatherAPI](https://www.weatherapi.com/))
+4. NBA Stats (фетч данных с [BallDontLie](https://app.balldontlie.io/))
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+---
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+<details>
+  <summary><strong>Cкриншоты</strong></summary>
+
+![image](./pictures/homepage.png)
+![image](./pictures/typingtest.png)
+![image](./pictures/weather.png)
+![image](./pictures/teams.png)
+![image](./pictures/player.png)
+
+</details>
+
+---
