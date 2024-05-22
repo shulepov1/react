@@ -64,14 +64,14 @@ const MemoedSearchResults = memo(function SearchResults({ query }: props) {
           ) : (
             results.map((player) => {
               return (
-                <button className={styles.playerLinkContainer}>
+                <div className={styles.playerLinkContainer}>
                   <Link
                     to={`/player/${player.id}`}
                     className={styles.playerLink}
                   >
                     {player.first_name} {player.last_name}
                   </Link>
-                </button>
+                </div>
               );
             })
           )}
