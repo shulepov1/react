@@ -14,6 +14,7 @@ export default function NBAStatsPage() {
   useEffect(() => {
     if (data) {
       setTeams(data);
+      setOriginalTeams(data);
     }
   }, []);
 
@@ -32,6 +33,7 @@ export default function NBAStatsPage() {
         .then((data) => {
           setTeams(data.data);
           setOriginalTeams(data.data);
+          console.log("data teams", data.data);
           return data.data;
         })
         .catch((e) => {

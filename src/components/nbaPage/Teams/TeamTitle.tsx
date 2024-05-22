@@ -9,7 +9,13 @@ export default function TeamTitle({
   setIsShowingTeam,
 }) {
   return (
-    <div className={styles.teamTitleContainer}>
+    <div
+      className={
+        team.city === ""
+          ? styles.teamTitleContainer__old
+          : styles.teamTitleContainer
+      }
+    >
       <div className={styles.nameRow}>
         <div className={styles.city}>{team.city ? team.city : "unknown"}</div>
         <div className={styles.name}>{team.name}</div>
@@ -33,7 +39,17 @@ export default function TeamTitle({
       </div>
       {team.city != "" && (
         <div className={styles.confRow}>
-          <div className={styles.conference}>{team.conference.slice(0, 1)}</div>
+          <div
+            className={
+              team.conference === "West"
+                ? styles.conferenceWest
+                : team.conference === "East"
+                ? styles.conferenceEast
+                : ""
+            }
+          >
+            {team.conference.slice(0, 1)}
+          </div>
           <div className={styles.separator}>|</div>
           <div className={styles.division}>{team.division}</div>
         </div>

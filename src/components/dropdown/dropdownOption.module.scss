@@ -1,0 +1,15 @@
+.dropdownOption {
+  color: lightgray;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 0.05s ease-in-out;
+
+  &:hover {
+    color: lightcoral;
+  }
+}
+
+.optionTextActive {
+  color: lightcoral;
+}

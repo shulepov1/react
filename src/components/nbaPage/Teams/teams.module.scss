@@ -26,3 +26,12 @@
   column-gap: 5rem;
   row-gap: 1rem;
 }
+
+.showOldTeamsCheckboxContainer {
+  display: flex;
+  gap: 0.5rem;
+
+  & > input {
+    accent-color: lightcoral;
+  }
+}

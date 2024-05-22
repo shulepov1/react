@@ -78,29 +78,46 @@ export default function NBAPlayerPage() {
   }
   console.log("rendering stats", stats);
   return (
-    <div>
+    <div className={styles.page}>
       <div className={styles.playerInfo}>
-        <h2>Info</h2>
-        <div>
+        <div className={styles.playerName}>
           {player.first_name} {player.last_name}
         </div>
-        <div>
+        <div className={styles.playerFrom}>
           {player.college}, {player.country}
         </div>
-        <div>draft year: {player.draft_year}</div>
-        <div>draft number: {player.draft_number}</div>
-        <div>height: {player.height}</div>
-        <div>weight: {player.weight} lbs</div>
-        <div>jersey number: {player.jersey_number}</div>
-        <div>position: {player.position}</div>
+        <div>
+          <span className={styles.playerLabel}>draft year:</span>{" "}
+          {player.draft_year || "undrafted"}
+        </div>
+        <div>
+          <span className={styles.playerLabel}>draft number:</span>{" "}
+          {player.draft_number || "undrafted"}
+        </div>
+        <div>
+          <span className={styles.playerLabel}>height:</span> {player.height}
+        </div>
+        <div>
+          <span className={styles.playerLabel}>weight:</span> {player.weight}{" "}
+          lbs
+        </div>
+        <div>
+          <span className={styles.playerLabel}>jersey number:</span>{" "}
+          {player.jersey_number}
+        </div>
+        <div>
+          <span className={styles.playerLabel}>position:</span>{" "}
+          {player.position}
+        </div>
       </div>
-      <div>
-        <h2>Games</h2>
-        <table>
+      <div className={styles.tableContainer}>
+        <h2 className={styles.tableHeading}>Games</h2>
+
+        <table id={styles.statsTable}>
           <caption>last 25 games of 2023/2024 season</caption>
           <thead>
             <tr>
-              <th scope="col">Data</th>
+              <th scope="col">Date</th>
               <th scope="col">Min</th>
               <th scope="col">PTS</th>
               <th scope="col">AST</th>
@@ -147,6 +164,11 @@ export default function NBAPlayerPage() {
             })}
           </tbody>
         </table>
+        {stats.length === 0 && (
+          <div>
+            Apparently, {player.first_name} hasn't played any games recently =(
+          </div>
+        )}
       </div>
     </div>
   );

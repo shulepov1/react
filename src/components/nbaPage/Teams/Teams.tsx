@@ -14,11 +14,18 @@ export default function Teams({ originalTeams, teams, setTeams }) {
     setTeams(newTeams);
   }
   function sortByConference() {
-    const newTeams = [...teams];
+    const oldTeams = teams.filter((team) => {
+      return team.city === "";
+    });
+    const newTeams = teams.filter(
+      (team) => team.conference !== "    " && team.conference !== ""
+    );
+    console.log("old", oldTeams);
+    console.log("new", newTeams);
     newTeams.sort((teamA, teamB) => {
       return teamA.conference.localeCompare(teamB.conference);
     });
-    setTeams(newTeams);
+    setTeams(newTeams.concat(oldTeams));
   }
   const [activeIndex, setActiveIndex] = useState(1);
   const [isShowOldTeamsChecked, setIsShowOldTeamsChecked] = useState(true);
@@ -48,7 +55,7 @@ export default function Teams({ originalTeams, teams, setTeams }) {
             isActive={activeIndex === 2 ? true : false}
           ></DropdownOption>
         </Dropdown>
-        <div>
+        <div className={styles.showOldTeamsCheckboxContainer}>
           <input
             type="checkbox"
             id="showOldTeams"
