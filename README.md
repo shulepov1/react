@@ -2,7 +2,7 @@
 
 Набор небольших мини-проектов для практики React, его экосистемы и TypeScript.
 
-**Ссылка: [URL](https://664e1f8e223582007944dfb2--voluble-souffle-78badf.netlify.app/)** (деплой на Netlify)
+**Ссылка: [URL](https://voluble-souffle-78badf.netlify.app/)** (деплой на Netlify)
 
 ## Стэк
 
