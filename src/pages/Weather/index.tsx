@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { AppContext } from "../../App";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import styles from "./index.module.scss";
 import type {
   weatherDataType,
@@ -33,11 +33,10 @@ export default function WeatherPage() {
   const [speedUnit, setSpeedUnit] = useState<speedUnitType>("km/h");
   const [isFetchingError, setIsFetchingError] = useState(false);
 
-  const { isLoading, isError, isFetching, error } = useQuery(
-    ["weather", location],
-    () => {
-      console.log("LOCATION", location);
-      fetch(
+  const { isLoading, isError, isFetching, error, refetch } = useQuery({
+    queryKey: ["weather", location],
+    queryFn: async () => {
+      const d = await fetch(
         `https://api.weatherapi.com/v1/current.json?key=${
           import.meta.env.VITE_API_KEY_WEATHER
         }&q=${location}&aqi=no`
@@ -61,15 +60,12 @@ export default function WeatherPage() {
             wind_kph: data.current.wind_kph,
             wind_mph: data.current.wind_mph,
           });
+          return data;
         });
-    }
-  );
+      return d;
+    },
+  });
 
-  if (isLoading || isFetching) return <h1>Loading...</h1>;
-  if (isError) {
-    console.log((error as Error).message);
-    return <h1>Error!</h1>;
-  }
   return (
     <div className={styles.main}>
       <div className={styles.content}>
@@ -81,6 +77,7 @@ export default function WeatherPage() {
           setSpeedUnit={setSpeedUnit}
         ></WeatherControllers>
         <WeatherDisplay
+          isLoading={isLoading}
           isFetchingError={isFetchingError}
           weatherData={weatherData}
           temperatureUnit={temperatureUnit}
