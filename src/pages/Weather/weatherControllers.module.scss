@@ -1,68 +1,84 @@
 .main {
-    display: flex;
-    gap: 3rem;
+  display: flex;
+  gap: 3rem;
 }
 
 .formContainer {
-    display: flex;
+  display: flex;
 }
 
 .form {
-    display: flex;
-    gap: 1rem;
+  display: flex;
+  gap: 1rem;
 }
 
 .inputContainer {
-    background-color: #ededed;
-    border-radius: 8px;
-    padding: 0.5rem 1rem 0.5rem 1rem;
+  background-color: #ededed;
+  border-radius: 8px;
+  padding: 0.5rem 1rem 0.5rem 1rem;
 
-    & > div {
-        border-bottom: 2px solid rgba(150, 145, 145, 0.512);
-        padding-inline: 0.35rem;
+  & > div {
+    border-bottom: 2px solid rgba(150, 145, 145, 0.512);
+    padding-inline: 0.35rem;
 
-        display: flex;
-        align-items: center;
-        gap: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 
-        & > input {
-            &::placeholder {
-                opacity: 0.5;
-            }
-            max-width: 200px;
-            font: inherit;
-            background-color: transparent;
-            border: none;
-            text-align: center;
-            font-size: 1.1rem;
-            padding: 0.5rem;
-            outline: none;
-        }
+    & > input {
+      &::placeholder {
+        opacity: 0.5;
+      }
+      max-width: 200px;
+      font: inherit;
+      background-color: transparent;
+      border: none;
+      text-align: center;
+      font-size: 1.1rem;
+      padding: 0.5rem;
+      outline: none;
     }
+  }
 }
 
 .button {
-    font: inherit;
-    background-color: #ededed;
-    padding: 0.5rem;
-    border-radius: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  font: inherit;
+  background-color: #ededed;
+  padding: 0.5rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    font-size: 1.1rem;
+  font-size: 1.1rem;
 
-    transition: all ease-in-out 0.1s;
-    &:hover,
-    &:focus-visible {
-        cursor: pointer;
-        filter: brightness(1.5);
-        scale: 0.95;
-    }
+  transition: all ease-in-out 0.1s;
+  &:hover,
+  &:focus-visible {
+    cursor: pointer;
+    filter: brightness(1.5);
+    scale: 0.95;
+  }
 }
 
 .unitButtons {
-    display: flex;
-    gap: 1rem;
-    width: 150px;
+  display: flex;
+  gap: 1rem;
+  width: 150px;
+}
+
+@media (width < 600px) {
+  .main {
+    flex-direction: column;
+    align-items: center;
+  }
+  input[type="text"] {
+    font-size: clamp(0.75rem, 5vw, 1rem) !important;
+    width: 30vw;
+  }
+  .inputContainer {
+    padding: 0;
+    max-width: 50vw;
+    flex: 1 1 0;
+  }
 }

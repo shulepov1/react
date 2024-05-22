@@ -94,7 +94,7 @@ export default function Teams({ originalTeams, teams, setTeams }: props) {
             );
           })}
         </div>
-        <div>
+        <div className={styles.teamViewCont}>
           {isShowingTeam &&
             teams.find((team) => team.id === chosenTeamIndex) && (
               <TeamView

@@ -29,3 +29,9 @@
     cursor: pointer;
     background-color: rgba(128, 128, 128, 0.586);
 }
+
+@media (width < 600px) {
+    .timer {
+        font-size: 1.5rem;
+    }
+}

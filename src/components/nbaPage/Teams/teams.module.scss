@@ -22,6 +22,7 @@
 .teamsCont {
   max-width: 1000px;
   display: grid;
+  justify-content: center;
   grid-template-columns: repeat(auto-fill, minmax(50px, 250px));
   column-gap: 5rem;
   row-gap: 1rem;
@@ -30,8 +31,23 @@
 .showOldTeamsCheckboxContainer {
   display: flex;
   gap: 0.5rem;
+  align-items: center;
 
   & > input {
     accent-color: lightcoral;
+  }
+}
+
+@media (width < 700px) {
+  .mainCont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .teamViewCont {
+    order: 0;
+  }
+  .teamsCont {
+    order: 1;
   }
 }

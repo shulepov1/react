@@ -29,3 +29,9 @@
 .wordOk {
     color: rgb(27, 131, 27);
 }
+
+@media (width < 600px) {
+    .wordWrap, .wordWrongWrap{
+        font-size: 1.5rem;
+    }
+}

@@ -15,3 +15,9 @@
 .input:focus {
     outline: 2px solid gray;
 }
+
+@media (width < 600px) {
+    .input {
+        font-size: clamp(0.5rem, 5vw, 3rem);
+    }
+}
