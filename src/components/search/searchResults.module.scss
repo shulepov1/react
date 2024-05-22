@@ -1,0 +1,52 @@
+.loader {
+  margin-left: 0.5rem;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #fff;
+  border-bottom-color: #ff3d00;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 2s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.playerLinkContainer {
+  border: none;
+  background-color: transparent;
+  font: inherit;
+  text-align: left;
+}
+.playerLink {
+  color: white;
+  text-decoration: none;
+  transition: all 0.1s ease-in-out;
+
+  &:hover {
+    color: rgb(206, 154, 34);
+  }
+}
+
+.resultsContainer {
+  position: absolute;
+  background-color: rgba(64, 64, 67, 1);
+  padding: 1rem;
+  max-height: 300px;
+  overflow: auto;
+  border: 1px solid rgb(140, 136, 136);
+}

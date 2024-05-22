@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import styles from "./navbar.module.css";
 import { AppContext } from "../../App";
+import Search from "../search/Search";
 
 export default function Navbar() {
   const { activeIndex } = useContext(AppContext);
@@ -57,6 +58,9 @@ export default function Navbar() {
           >
             NBA Stats
           </Link>
+        </li>
+        <li>
+          <Search></Search>
         </li>
       </ul>
     </nav>

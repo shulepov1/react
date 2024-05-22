@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import styles from "./index.module.scss";
 
 export default function NBAPlayerPage() {
+  console.log("nba player page");
   const { setActiveIndex } = useContext(AppContext);
   const params = useParams();
 
@@ -16,12 +17,16 @@ export default function NBAPlayerPage() {
   }, [setActiveIndex]);
 
   useEffect(() => {
-    if (data) {
-      console.log("already data", data);
+    console.log("data", data && data[1].id, params.id);
+    if (data && data[1].id === Number(params.id)) {
+      console.log("cached data", data);
       setStats(data[0]);
       setPlayer(data[1]);
+    } else {
+      console.log("here");
+      refetch();
     }
-  }, []);
+  }, [params]);
 
   const { isPending, isError, isFetching, data, error, refetch } = useQuery({
     queryKey: [`player${params.id}`],
@@ -77,6 +82,7 @@ export default function NBAPlayerPage() {
     );
   }
   console.log("rendering stats", stats);
+  console.log("rendering player", player);
   return (
     <div className={styles.page}>
       <div className={styles.playerInfo}>
