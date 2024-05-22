@@ -3,14 +3,27 @@ import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../App";
 import { useQuery } from "@tanstack/react-query";
 import styles from "./index.module.scss";
+import type { player, stat } from "../../types/Api";
 
 export default function NBAPlayerPage() {
   console.log("nba player page");
   const { setActiveIndex } = useContext(AppContext);
   const params = useParams();
 
-  const [stats, setStats] = useState([]);
-  const [player, setPlayer] = useState([]);
+  const [stats, setStats] = useState<stat[]>([]);
+  const [player, setPlayer] = useState<player>({
+    id: -1,
+    college: "",
+    country: "",
+    first_name: "",
+    last_name: "",
+    height: "",
+    weight: "",
+    jersey_number: "",
+    position: "",
+    draft_number: 0,
+    draft_year: 0,
+  });
 
   useEffect(() => {
     setActiveIndex(-1);
@@ -70,7 +83,7 @@ export default function NBAPlayerPage() {
   if ((isError && error) || data.length === 0) {
     return (
       <div>
-        <div>Error has occured: {error.message}</div>
+        <div>Error has occured: {error && error.message}</div>
         <button
           onClick={() => {
             refetch();
@@ -172,7 +185,8 @@ export default function NBAPlayerPage() {
         </table>
         {stats.length === 0 && (
           <div>
-            Apparently, {player.first_name} hasn't played any games recently =(
+            Apparently, {player.first_name} hasn't played any games recently{" "}
+            {"=("}
           </div>
         )}
       </div>

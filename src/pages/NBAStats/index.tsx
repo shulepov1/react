@@ -3,6 +3,7 @@ import { AppContext } from "../../App";
 import { useQuery } from "@tanstack/react-query";
 import Teams from "../../components/nbaPage/Teams/Teams";
 import styles from "./index.module.scss";
+import { team } from "../../types/Api";
 
 export default function NBAStatsPage() {
   const { setActiveIndex } = useContext(AppContext);
@@ -18,7 +19,7 @@ export default function NBAStatsPage() {
     }
   }, []);
 
-  const [teams, setTeams] = useState([]);
+  const [teams, setTeams] = useState<team[]>([]);
   const [originalTeams, setOriginalTeams] = useState([]);
 
   const { isPending, isError, isFetching, data, error, refetch } = useQuery({

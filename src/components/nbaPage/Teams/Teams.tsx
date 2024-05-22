@@ -1,11 +1,18 @@
 import TeamTitle from "./TeamTitle";
 import Dropdown from "../../dropdown/Dropdown";
 import DropdownOption from "../../dropdown/DropdownOption";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import TeamView from "./TeamView";
 import styles from "./teams.module.scss";
+import { team } from "../../../types/Api";
 
-export default function Teams({ originalTeams, teams, setTeams }) {
+interface props {
+  originalTeams: team[];
+  teams: team[];
+  setTeams: Dispatch<SetStateAction<team[]>>;
+}
+
+export default function Teams({ originalTeams, teams, setTeams }: props) {
   function sortAlphabetically() {
     const newTeams = [...teams];
     newTeams.sort((teamA, teamB) => {
@@ -59,7 +66,7 @@ export default function Teams({ originalTeams, teams, setTeams }) {
           <input
             type="checkbox"
             id="showOldTeams"
-            onChange={(e) => {
+            onChange={() => {
               const newChecked = !isShowOldTeamsChecked;
               setIsShowOldTeamsChecked(newChecked);
               if (newChecked) {
@@ -81,7 +88,6 @@ export default function Teams({ originalTeams, teams, setTeams }) {
               <TeamTitle
                 chosenTeamIndex={chosenTeamIndex}
                 setChosenTeamIndex={setChosenTeamIndex}
-                isShowingTeam={isShowingTeam}
                 setIsShowingTeam={setIsShowingTeam}
                 team={team}
               />

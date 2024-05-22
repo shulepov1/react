@@ -1,13 +1,21 @@
 import styles from "./teamTitle.module.scss";
 import Eye from "../../svg/Eye";
+import { Dispatch, SetStateAction } from "react";
+import { team } from "../../../types/Api";
+
+interface props {
+  setChosenTeamIndex: Dispatch<SetStateAction<number>>;
+  chosenTeamIndex: number;
+  team: team;
+  setIsShowingTeam: Dispatch<SetStateAction<boolean>>;
+}
 
 export default function TeamTitle({
   setChosenTeamIndex,
   chosenTeamIndex,
-  isShowingTeam,
   team,
   setIsShowingTeam,
-}) {
+}: props) {
   return (
     <div
       className={

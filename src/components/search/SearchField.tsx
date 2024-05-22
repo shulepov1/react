@@ -1,4 +1,12 @@
-export default function SearchField({ query, setQuery, setIsShown }) {
+import { Dispatch, SetStateAction } from "react";
+
+interface props {
+  query: string;
+  setQuery: Dispatch<SetStateAction<string>>;
+  setIsShown: Dispatch<SetStateAction<boolean>>;
+}
+
+export default function SearchField({ query, setQuery, setIsShown }: props) {
   return (
     <input
       placeholder="найти игрока"

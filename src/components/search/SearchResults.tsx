@@ -1,11 +1,16 @@
 import { useState, useEffect, memo } from "react";
 import styles from "./searchResults.module.scss";
 import { Link } from "react-router-dom";
+import { player } from "../../types/Api";
 
-const MemoedSearchResults = memo(function SearchResults({ query, setQuery }) {
+interface props {
+  query: string;
+}
+
+const MemoedSearchResults = memo(function SearchResults({ query }: props) {
   console.log("rendering with query:", query);
-  const [timer, setTimer] = useState(null);
-  const [results, setResults] = useState([]);
+  const [timer, setTimer] = useState<number | null>(null);
+  const [results, setResults] = useState<player[]>([]);
   const [isDebouncing, setIsDebouncing] = useState(false);
 
   async function searchPlayers() {
@@ -59,12 +64,7 @@ const MemoedSearchResults = memo(function SearchResults({ query, setQuery }) {
           ) : (
             results.map((player) => {
               return (
-                <button
-                  //   onClick={() => {
-                  //     setQuery("");
-                  //   }}
-                  className={styles.playerLinkContainer}
-                >
+                <button className={styles.playerLinkContainer}>
                   <Link
                     to={`/player/${player.id}`}
                     className={styles.playerLink}

@@ -1,4 +1,9 @@
-export default function Eye({ size, fill }) {
+interface props {
+  size: string;
+  fill: string;
+}
+
+export default function Eye({ size, fill }: props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

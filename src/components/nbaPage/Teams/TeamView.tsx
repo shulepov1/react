@@ -1,11 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 import styles from "./teamView.module.scss";
 import { Link } from "react-router-dom";
+import { team, player } from "../../../types/Api";
 
-export default function TeamView({ index, team }) {
+interface props {
+  index: number;
+  team: team | undefined;
+}
+
+export default function TeamView({ index, team }: props) {
   const { isPending, isFetching, error, data, isError, refetch } = useQuery({
     queryKey: [`team${index}`],
-    queryFn: async () => {
+    queryFn: async (): Promise<player[]> => {
       const pd = await fetch(
         `https://api.balldontlie.io/v1/players/?team_ids[]=${index}`,
         {
@@ -26,10 +32,10 @@ export default function TeamView({ index, team }) {
   if (isPending || isFetching) {
     return <div className={styles.loading}>LOADING...</div>;
   }
-  if (isError && error) {
+  if ((isError && error) || !team) {
     return (
       <div>
-        <div>Error has occured: {error.message}</div>
+        <div>Error has occured: {error && error.message}</div>
         <button
           onClick={() => {
             refetch();

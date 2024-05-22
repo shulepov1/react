@@ -33,7 +33,7 @@ export default function WeatherPage() {
   const [speedUnit, setSpeedUnit] = useState<speedUnitType>("km/h");
   const [isFetchingError, setIsFetchingError] = useState(false);
 
-  const { isLoading, isError, isFetching, error, refetch } = useQuery({
+  const { isLoading } = useQuery({
     queryKey: ["weather", location],
     queryFn: async () => {
       const d = await fetch(
